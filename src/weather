@@ -1,0 +1,54 @@
+// xcode: set sdk=iOS
+
+//
+//  weather.swift
+//  Files.xcfilescontainer
+//
+//  Created by Ninyee S on 10/13/26.
+//
+//Break the UI into reusable components (e.g., HourlyForecastView, HourlyRowView, WeeklyForecastView, WeeklyRowView, etc.).
+
+import Foundation
+import SwiftUI
+
+struct WeatherAt {
+    var temp: Int
+    var location: String = "Chapel Hill"
+    var weatherCondition: String
+    var highTemp: Int
+    var lowTemp: Int
+}
+
+
+struct Weather: View {
+    let chapelWeather = WeatherAt(temp: 84, location: "Chapel Hill", weatherCondition: "Sunny", highTemp: 84, lowTemp: 56)
+    let charlotteWeather = WeatherAt(temp: 85, location: "Charlotte", weatherCondition: "Sunny", highTemp: 85, lowTemp: 57)
+    let jerseyWeather = WeatherAt(temp: 73, location: "Jersey City", weatherCondition: "Mostly Sunny", highTemp: 73, lowTemp: 58)
+    
+    var body: some View {
+        let locationPage = chapelWeather // Change for location
+        let hour: [Hour]
+
+        
+        VStack(spacing: 20) {
+            Text(locationPage.location)
+                .font(.headline)
+            Text("\(locationPage.temp)°")
+                .font(.title)
+            Text(locationPage.weatherCondition)
+                .font(.body)
+            Text("H:\(locationPage.highTemp)°  L:\(locationPage.lowTemp)°")
+                .font(.body)
+            HourlyRowView(hours : Hour.chapelWeather) //
+                .padding()
+            WeeklyRowView(days : Day.chapelWeather) //
+                .padding()
+        }
+        .padding()
+        .background(Color("lightBlue"))
+    }
+}
+
+#Preview {
+    Weather()
+}
